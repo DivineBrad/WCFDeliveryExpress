@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFDeliveryExpress", "WCFDeliveryExpress\WCFDeliveryExpress.csproj", "{9661C85E-1994-4620-A02E-390B722E333A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeliveryHost", "DeliveryHost\DeliveryHost.csproj", "{8DF87B08-FE1A-4DC3-A6EB-9EB13534B9D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9661C85E-1994-4620-A02E-390B722E333A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9661C85E-1994-4620-A02E-390B722E333A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9661C85E-1994-4620-A02E-390B722E333A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9661C85E-1994-4620-A02E-390B722E333A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF87B08-FE1A-4DC3-A6EB-9EB13534B9D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF87B08-FE1A-4DC3-A6EB-9EB13534B9D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF87B08-FE1A-4DC3-A6EB-9EB13534B9D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF87B08-FE1A-4DC3-A6EB-9EB13534B9D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {837C283D-5921-4085-BF62-9A795260ECA0}
+	EndGlobalSection
+EndGlobal
