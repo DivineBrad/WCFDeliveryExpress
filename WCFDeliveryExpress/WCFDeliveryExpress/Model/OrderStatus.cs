@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryExpress.Model
 {
-    class OrderStatus
+    public class OrderStatus
     {
         public int StatusId { get; set; }
         public string Code { get; set; }

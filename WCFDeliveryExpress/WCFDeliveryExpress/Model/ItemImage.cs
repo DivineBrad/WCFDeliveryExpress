@@ -7,7 +7,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace DeliveryExpress.Model
 {
-    class ItemImage
+    public class ItemImage
     {
         public int ImgId { get; set; }
         public Byte[] Image { get; set; }

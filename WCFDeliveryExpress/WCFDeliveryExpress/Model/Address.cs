@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryExpress.Model
 {
-    class Address
+    public class Address
     {
         public int AddressId { get; set; }
         public string City { get; set; }

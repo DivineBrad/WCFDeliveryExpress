@@ -48,6 +48,7 @@
     <Compile Include="IDeliveryService.cs" />
     <Compile Include="Model\Address.cs" />
     <Compile Include="Model\Customer.cs" />
+    <Compile Include="Model\Fault.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\ItemImage.cs" />
     <Compile Include="Model\Log.cs" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryExpress.Model
 {
-    class Log
+    public class Log
     {
         public int LogId { get; set; }
         public string Action { get; set; }

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace DeliveryExpress.Model
 {
-    class Item
+    public class Item
     {
+
         public int ItemId { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
+        public double Price { get; set; }
         public ItemImage Image { get; set; }
 
     }
