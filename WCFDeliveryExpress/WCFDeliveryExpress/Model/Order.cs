@@ -16,5 +16,6 @@ namespace DeliveryExpress.Model
         public decimal Subtotal { get; set; }
         public OrderStatus Status { get; set; }
         public List<Item> Items { get; set; }
+        public Customer Customer { get; set; } 
     }
 }
