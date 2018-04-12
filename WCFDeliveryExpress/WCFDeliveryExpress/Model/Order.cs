@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryExpress.Model
 {
-    class Order
+    public class Order
     {
         public int OrderId { get; set; }
         public DateTime DateTime { get; set; }

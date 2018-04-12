@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DeliveryExpress.Model
 {
-    class UserType
+    public class UserType
     {
         public int TypeId { get; set; }
         public string Type { get; set; }
