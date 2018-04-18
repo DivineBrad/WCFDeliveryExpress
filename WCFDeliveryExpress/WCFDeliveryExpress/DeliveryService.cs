@@ -17,7 +17,7 @@ namespace WCFDeliveryExpress
         {
             SqlConnection con = DbConfig.connection;
             SqlCommand cmd = new SqlCommand
-            ("insert into Item values(" + i.ItemId + ",'" + i.Name + "','" + i.Desc + "','" + i.Image.ImgId + "')", con);
+            ("insert into Item(name,description,price) values('" + i.Name + "','" + i.Desc + "'," + i.Price + ")", con);
             con.Open();
             int rows_aff = cmd.ExecuteNonQuery();
             if (rows_aff <= 0)
@@ -90,12 +90,16 @@ namespace WCFDeliveryExpress
             }
             else
             {
+                
+                while (reader.Read())
+                {
                     item = new Item();
                     item.ItemId = Convert.ToInt32(reader["item_id"]);
                     item.Name = reader["name"].ToString();
                     item.Desc = reader["description"].ToString();
                     item.Price = Convert.ToDouble(reader["price"]);
-                    item.Image.ImgId = Convert.ToInt32(reader["img_id"]);
+                    //item.Image.ImgId = Convert.ToInt32(reader["img_id"]);
+                }
             }
             con.Close();
             return item;
@@ -122,6 +126,7 @@ namespace WCFDeliveryExpress
             else
             {
                 ItemList = new List<Item>();
+                
                 while (reader.Read())
                 {
                     item = new Item();
@@ -129,7 +134,7 @@ namespace WCFDeliveryExpress
                     item.Name = reader["name"].ToString();
                     item.Desc = reader["description"].ToString();
                     item.Price = Convert.ToDouble(reader["price"]);
-                    item.Image.ImgId = Convert.ToInt32(reader["img_id"]);
+                    //item.Image.ImgId = Convert.ToInt32(reader["img_id"]);
                     ItemList.Add(item);
                 }
             }

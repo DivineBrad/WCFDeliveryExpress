@@ -13,6 +13,7 @@ namespace WCFDeliveryExpress
     [ServiceContract]
     public interface IDeliveryService
     {
+        [FaultContract(typeof(Fault))]
         [OperationContract]
         int DeleteOrder(int id);
         [OperationContract]
