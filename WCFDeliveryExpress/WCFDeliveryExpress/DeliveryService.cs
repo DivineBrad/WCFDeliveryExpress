@@ -257,5 +257,132 @@ namespace WCFDeliveryExpress
             return typeList;
 
         }
+
+        public List<Order> GetOrders()
+        {
+            List<Order> orders = null;
+            List<OrderItem> oItems = null;
+            Customer cus = null;
+            Address addr = null;
+            OrderStatus status = null;
+            Order order = null;
+            SqlConnection con = DbConfig.connection;
+            SqlCommand cmd = null;
+            SqlDataReader reader = null;
+            // Get Order and related other table data
+            cmd = new SqlCommand
+            ("SELECT * "
+             + " FROM  [dbo].[Order]  "
+             + "INNER JOIN OrderStatus ON [order].status_id = OrderStatus.status_id "
+             + "INNER JOIN customer ON [order].customer_id = customer.customer_id "
+              + "INNER JOIN address ON customer.address_id = address.address_id "
+              + "WHERE NOT description = 'completed' OR description = 'cancelled'", con);
+            con.Open();
+            reader = cmd.ExecuteReader();
+
+            if (!reader.HasRows)
+            {
+                Fault fault = new Fault();
+                fault.code = 105;
+                fault.Error_detail = "Unable to get info from the database!!";
+                fault.Error_reason = "Table Empty!! or no table exists";
+                throw new FaultException<Fault>(fault);
+            }
+            else
+            {
+                orders = new List<Order>();
+                while (reader.Read())
+                {
+                    // instatiate objects
+                    cus = new Customer();
+                    addr = new Address();
+                    order = new Order();
+                    status = new OrderStatus();
+                    // assign values
+                    //order
+                    order.OrderId = Convert.ToInt32(reader["order_id"]);
+                    order.OrderNo = reader["order_no"].ToString();
+                    order.DateTime = Convert.ToDateTime(reader["date"]);
+                    order.Total = Convert.ToDecimal(reader["total"]);
+                    order.Subtotal = Convert.ToDecimal(reader["subtotal"]);
+                    order.Tax = Convert.ToDecimal(reader["tax"]);
+                    //status 
+                    status.StatusId = Convert.ToInt32(reader["status_id"]);
+                    status.Code = reader["code"].ToString();
+                    status.Desc = reader["description"].ToString();
+                    //address 
+                    addr.AddressId = Convert.ToInt32(reader["address_id"]);
+                    addr.Street = reader["street"].ToString();
+                    addr.City = reader["city"].ToString();
+                    addr.Region = reader["region"].ToString();
+                    addr.Code = reader["addr_code"].ToString();
+                    //customer 
+                    cus.CustomerId = Convert.ToInt32(reader["customer_id"]);
+                    cus.Name = reader["name"].ToString();
+                    cus.Phone = reader["contact"].ToString();
+                    //Combine Objects
+                    cus.Address = addr;
+                    order.Customer = cus;
+                    order.Status = status;
+                    orders.Add(order);
+                }
+            }
+
+            con.Close();
+            return orders;
+        }
+        //CreateOrder
+        public int CreateOrder(Order order)
+        {
+
+            SqlConnection con = DbConfig.connection;
+            SqlCommand cmd = null;
+            SqlDataReader reader = null;
+            // Get Order and related other table data
+            cmd = new SqlCommand
+            ("INSERT INTO [dbo].[Order] "
+           + "(order_no, date , total, subtotal, tax, status_id, customer_id, user_id)"
+           + " OUTPUT INSERTED.order_id  VALUES"
+           + "('@orderNo' , '@date', '@total',"
+           + " '@subtotal', '@tax', '@statusId', '@cusId', '@userId')", con);
+            cmd.Parameters.AddWithValue("@orderNo", order.OrderNo);
+            cmd.Parameters.AddWithValue("@date", order.DateTime);
+            cmd.Parameters.AddWithValue("@total", order.Total);
+            cmd.Parameters.AddWithValue("@subtotal", order.Subtotal);
+            cmd.Parameters.AddWithValue("@statusId", order.Status.StatusId);
+            cmd.Parameters.AddWithValue("@tax", order.Tax);
+            cmd.Parameters.AddWithValue("@cusId", order.Customer.CustomerId);
+            cmd.Parameters.AddWithValue("@userId", order.User.UserId);
+
+
+            con.Open();
+            var orderId = 0;
+            orderId = (int)cmd.ExecuteScalar();
+
+            if (orderId < 1)
+            {
+                Fault fault = new Fault();
+                fault.code = 105;
+                fault.Error_detail = "Unable to insert into the database!!";
+                fault.Error_reason = "Problem with insertion query";
+                throw new FaultException<Fault>(fault);
+            }
+
+
+            con.Close();
+            return orderId;
+        }
+
+        // CreateCustomer 
+        public int CreateCustomer()
+        {
+            var custId = 0;
+            return custId;
+        }
+
     }
+
+
+
+}
 }
