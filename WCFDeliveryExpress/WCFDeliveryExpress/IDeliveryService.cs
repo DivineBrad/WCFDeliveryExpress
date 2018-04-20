@@ -13,6 +13,8 @@ namespace WCFDeliveryExpress
     [ServiceContract]
     public interface IDeliveryService
     {
+        [XmlSerializerFormatAttribute(SupportFaults = true)]
+        [ServiceKnownTypeAttribute(typeof(Fault))]
         [FaultContract(typeof(Fault))]
         [OperationContract]
         int DeleteOrder(int id);
@@ -26,5 +28,11 @@ namespace WCFDeliveryExpress
         Item GetItem(int id);
         [OperationContract]
         int DeleteItem(int id);
+        [OperationContract]
+        List<Item> GetItemsByName(string value);
+        [OperationContract]
+        bool Authenticate(string username, string password, int typeid);
+        [OperationContract]
+        List<UserType> getTypes();
     }
 }
