@@ -374,15 +374,61 @@ namespace WCFDeliveryExpress
         }
 
         // CreateCustomer 
-        public int CreateCustomer()
+        public int CreateCustomer(Customer cu)
+        {
+            SqlConnection con = DbConfig.connection;
+            SqlCommand cmd = null;
+            cmd = new SqlCommand ("INSERT INTO Address (street, city, region, code)"
+            +" OUTPUT INSERTED.address_id  VALUES"
+           +"('490 Lobby Road', 'Toronto', 'Ontario', 'L7J7k9')", con);
+            con.Open();
+            int add_id =(int) cmd.ExecuteScalar();
+            if (add_id <= 0)
+            {
+                Fault fault = new Fault();
+                fault.code = 101;
+                fault.Error_detail = "Unable to insert address into database !!";
+                fault.Error_reason = "Something wrong with the Query !!";
+                throw new FaultException<Fault>(fault, new FaultReason("Something wrong with the Query !!"));
+            }
+            else
+            {
+
+               cmd = new SqlCommand("INSERT INTO Customer(name, contact, address_id)" +
+                   " OUTPUT INSERTED.customer_id VALUES('John', '4168836879', '1')", con);
+                int cus_id = (int)cmd.ExecuteScalar();
+             
+                if (cus_id <= 0)
+                {
+                    Fault fault = new Fault();
+                    fault.code = 101;
+                    fault.Error_detail = "Unable to insert customer record into database !!";
+                    fault.Error_reason = "Something wrong with the Query !!";
+                    throw new FaultException<Fault>(fault, new FaultReason("Something wrong with the Query !!"));
+                }
+                else
+                {
+                    con.Close();
+                    return cus_id;
+                }
+
+            }
+            
+
+
+
+            
+        }
+
+        //UpdateCustomer 
+        public int UpdateCustomer(Customer cu)
         {
             var custId = 0;
             return custId;
         }
-
     }
 
 
 
-}
+
 }
